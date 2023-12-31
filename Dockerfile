@@ -3,7 +3,7 @@ FROM gradle:7.3.3-jdk11 AS build
 
 # Copy local code to the container image.
 WORKDIR /app
-COPY build.gradle.kts .
+COPY build.gradle .
 COPY gradlew .
 COPY gradle ./gradle
 COPY src ./src
