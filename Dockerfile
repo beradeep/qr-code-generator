@@ -4,7 +4,11 @@ FROM gradle:7.3.3-jdk11 AS build
 # Copy local code to the container image.
 WORKDIR /app
 COPY build.gradle.kts .
+COPY gradlew .
 COPY src ./src
+
+# Make the gradlew script executable
+RUN chmod +x ./gradlew
 
 # Build a release artifact.
 RUN ./gradlew clean build --no-daemon
