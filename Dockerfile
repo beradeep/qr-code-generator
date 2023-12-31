@@ -5,6 +5,7 @@ FROM gradle:7.3.3-jdk11 AS build
 WORKDIR /app
 COPY build.gradle.kts .
 COPY gradlew .
+COPY gradle ./gradle
 COPY src ./src
 
 # Make the gradlew script executable
