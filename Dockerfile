@@ -7,7 +7,7 @@ COPY build.gradle.kts .
 COPY src ./src
 
 # Build a release artifact.
-RUN gradle clean build --no-daemon
+RUN ./gradlew clean build --no-daemon
 
 # Use AdoptOpenJDK for base image.
 FROM adoptopenjdk:11-jre-hotspot
