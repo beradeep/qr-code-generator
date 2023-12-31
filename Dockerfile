@@ -1,8 +1,3 @@
-FROM ubuntu:latest
-LABEL authors="Subhradeep"
-
-ENTRYPOINT ["top", "-b"]
-
 # Use the official gradle image to create a build artifact.
 FROM gradle:7.3.3-jdk11 AS build
 
