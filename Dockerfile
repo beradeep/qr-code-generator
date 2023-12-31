@@ -11,7 +11,7 @@ COPY src ./src
 RUN chmod +x ./gradlew
 
 # Build a release artifact.
-RUN ./gradlew clean build --no-daemon -scan --stacktrace
+RUN ./gradlew clean build
 
 # Use AdoptOpenJDK for base image.
 FROM adoptopenjdk:11-jre-hotspot
