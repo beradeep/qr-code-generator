@@ -1,24 +1,8 @@
-# Use the official gradle image to create a build artifact.
-FROM gradle:7.3.3-jdk11 AS build
-
-# Copy local code to the container image.
-WORKDIR /app
-COPY build.gradle.kts .
-COPY gradlew .
-COPY gradle ./gradle
-COPY src ./src
-
-# Make the gradlew script executable
-RUN chmod +x ./gradlew
-
-# Build a release artifact.
-RUN ./gradlew clean build --no-daemon -scan --stacktrace
-
-# Use AdoptOpenJDK for base image.
-FROM adoptopenjdk:11-jre-hotspot
-
+# Setup Alpine Linux bundled with OpenJDK 17
+FROM openjdk:17-jdk-alpine
 # Copy the jar to the production image from the builder stage.
-COPY --from=build /app/build/libs/*.jar /app.jar
-
+COPY /build/libs/*.jar /app.jar
+# Exposed port 8080
+EXPOSE 8080
 # Run the web service on container startup.
 CMD ["java", "-jar", "/app.jar"]
