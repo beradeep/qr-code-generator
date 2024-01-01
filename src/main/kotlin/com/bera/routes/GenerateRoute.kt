@@ -29,7 +29,7 @@ fun Route.generateRoute(db: MongoDatabase) {
             val options = FindOneAndUpdateOptions().returnDocument(ReturnDocument.AFTER)
             try {
                 requestCollection.findOneAndUpdate(filter, update, options)
-                    ?.let { requestCollection.insertOne(RequestData(ip, listOf(content))) }
+                    ?: requestCollection.insertOne(RequestData(ip, listOf(content)))
             } catch (e: Exception) {
                 e.printStackTrace()
             }
