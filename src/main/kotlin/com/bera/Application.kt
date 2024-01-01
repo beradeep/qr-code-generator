@@ -13,9 +13,16 @@ fun main(args: Array<String>) {
 
 fun Application.module() {
     val properties = Properties()
-    properties.load(FileInputStream("/local.properties"))
-    val db_url = properties.getProperty("MONGO_URL") ?: System.getenv("MONGO_URL")
-    val db_name = properties.getProperty("MONGO_DB_NAME") ?: System.getenv("MONGO_DB_NAME")
+    lateinit var db_url: String
+    lateinit var db_name: String
+    try {
+        properties.load(FileInputStream("/local.properties"))
+        db_url = properties.getProperty("MONGO_URL")
+        db_name = properties.getProperty("MONGO_DB_NAME")
+    } catch (_: Exception) {
+        db_url = System.getenv("MONGO_URL")
+        db_name = System.getenv("MONGO_DB_NAME")
+    }
     val dbClient = DbClient()
     val database = dbClient(db_url).getDatabase(db_name)
     configureSerialization()
