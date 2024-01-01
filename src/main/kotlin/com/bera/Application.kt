@@ -1,25 +1,23 @@
 package com.bera
 
-import com.bera.EnvConstants.DB_NAME
-import com.bera.EnvConstants.MONGO_DB_URI
 import com.bera.data.DbClient
 import com.bera.plugins.configureRouting
 import com.bera.plugins.configureSerialization
 import io.ktor.server.application.*
+import java.io.FileInputStream
+import java.util.*
 
 fun main(args: Array<String>) {
     io.ktor.server.netty.EngineMain.main(args)
 }
 
 fun Application.module() {
+    val properties = Properties()
+    properties.load(FileInputStream("/local.properties"))
+    val db_url = properties.getProperty("MONGO_URL") ?: System.getenv("MONGO_URL")
+    val db_name = properties.getProperty("MONGO_DB_NAME") ?: System.getenv("MONGO_DB_NAME")
     val dbClient = DbClient()
-    val db = dbClient(
-        environment.config.propertyOrNull("ktor.security.mongo_url")?.getString()
-            ?: MONGO_DB_URI
-    ).getDatabase(
-        environment.config.propertyOrNull("ktor.security.mongo_db_name")?.getString()
-            ?: DB_NAME
-    )
+    val database = dbClient(db_url).getDatabase(db_name)
     configureSerialization()
-    configureRouting(db)
+    configureRouting(database)
 }
