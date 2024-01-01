@@ -1,3 +1,2 @@
-FROM eclipse-temurin:17-jdk-jammy
-RUN chmod +x ./gradlew
-CMD ["./gradlew", "runDocker"]
+FROM eclipse-temurin:17-jdk-alpine
+CMD ["./gradlew", "runFatJar"]
