@@ -49,3 +49,6 @@ Send a `get` request to the above url with a raw (json) body a follows.
 ```
 #### Response
 ![download (6)](https://github.com/beradeep/qr-code-generator/assets/124783808/cf9bfda6-a94b-44f9-aeda-1547cf15f184)
+
+## Acknowledgements
+> g0dkar/qrcode-kotlin - https://github.com/g0dkar/qrcode-kotlin
