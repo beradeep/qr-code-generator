@@ -36,7 +36,7 @@ Send a `get` request to the above url with a raw (json) body a follows.
 ### Example
 #### Request
 `get`  https://qr-code-generator-production-a2a6.up.railway.app/ 
-```
+```json
 {
     "content": "hey, how are you",
     "shape": "SQUARE",
